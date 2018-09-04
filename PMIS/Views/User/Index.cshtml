@@ -1,0 +1,150 @@
+﻿@model IEnumerable<PMIS.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h2>مدیریت کاربران<a>@ViewBag.superOrganization</a></h2>
+</div>
+
+@if (TempData["EDIT_STATE"] != null)
+{
+    if (TempData["EDIT_STATE"].ToString() == "OK")
+    {
+        <div class="alert alert-success">ویرایش با موفقیت انجام شد</div>
+    }
+    else
+    {
+        <div class="alert alert-danger">متاسفانه عملیات با خطا مواجه شد</div>
+    }
+}
+
+@if (TempData["ADD_STATE"] != null)
+{
+    if (TempData["ADD_STATE"].ToString() == "OK")
+    {
+        <br />
+        <div class="alert alert-success">کاربر جدید با موفقیت افزوده شد</div>
+        <br />
+
+    }
+    else
+    {
+        <br />
+        <div class="alert alert-danger">@TempData["ADD_STATE"].ToString()</div>
+        <br />
+    }
+}
+
+
+<p>
+    <button id="btn_add" type="button" class="btn btn-theme03"><a style="color:white" href="@Url.Action("Add")">ایجاد کاربر جدید</a></button>
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserRole)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Enum.GetName(typeof(UserRoles), item.UserRole)
+            </td>
+
+            <td>
+                <img src="@Url.Content(item.ImagePath)" width="50" height="50" />
+            </td>
+
+
+            <td>
+                <a href="@Url.Action("Detail", new { id=item.ID})"><span class="btn btn-success btn-xs btn-xs"><i class="fa fa-check"></i></span></a>
+                <a href="@Url.Action("Edit", new { id=item.ID})"><span class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></span></a>
+                <a href="#" onclick="DoDelete(@item.ID)"><span class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></span></a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@section scripts
+
+{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script>
+        $("#btn_delete_person").click(function (evt) {
+
+            evt.preventDefault();
+
+            $("<div>Are you sure you want to continue?</div>").dialog({
+                buttons: {
+                    "Ok": function () {
+                        alert('hello')
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+
+        function DoDelete(id) {
+            var answer = confirm('آیا از حذف این کاربر اطمینان دارید؟');
+            if (answer) {
+
+                            var url = '@Url.Action("Delete")';
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                cache: false,
+                                data: { id: id },
+
+                                success: function (result) {
+                                    if (result) {
+                                        alert("امکان حذف این کاربر وجود ندارد");
+
+
+                                    } else {
+                                        alert("شخص با موفقیت حذف شد");
+                                        window.location.href = '/User/Index'
+                                    }
+                                }
+                            });
+            }
+            else {
+                e.preventDefault();
+            }
+        }
+    </script>
+}

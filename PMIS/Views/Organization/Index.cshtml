@@ -1,0 +1,145 @@
+﻿@model IEnumerable<PMIS.Models.EntityModel.Organization>
+@using System.Web.UI.WebControls
+@using PMIS.Models.ModelHelper
+
+
+<div class="jumbotron">
+    <h2>ساختار سازمانی</h2>
+</div>
+<link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
+<div class="form-body">
+    @if (TempData["EDIT_STATE"] != null)
+    {
+        if (TempData["EDIT_STATE"].ToString() == "OK")
+        {
+            <div class="alert alert-success">ویرایش با موفقیت انجام شد</div>
+        }
+        else
+        {
+            <div class="alert alert-danger">متاسفانه عملیات با خطا مواجه شد</div>
+        }
+    }
+
+    @if (TempData["ADD_STATE"] != null)
+    {
+        if (TempData["ADD_STATE"].ToString() == "OK")
+        {
+            <div class="alert alert-success">ساختار جدید با موفقیت افزوده شد</div>
+        }
+        else
+        {
+            <div class="alert alert-danger">@TempData["ADD_STATE"].ToString()</div>
+        }
+    }
+    <div id="jstree" dir="rtl">
+        @(Html.TreeView(Model)
+                          .EmptyContent("وزارت دفاع و پشتیبانی نیروهای مسلح")
+                          .Children(m => m.SubOrganizations)
+                          .HtmlAttributes(new { id = "tree" })
+                      .ChildrenHtmlAttributes(new { @class = "subItem" })
+                          .ItemText(m => m.Name)
+                          .ItemTemplate(
+        @<text>
+            <b><a>@item.Name</a></b>
+        </text>)
+        )
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jsTree3/jstree.min.js"></script>
+    <script src="~/Scripts/jsTree3/jstree.js"></script>
+
+
+    <script>
+        jQuery(function ($) {
+            var selectedData;
+            $('#jstree').jstree({
+                "core": {
+                    "multiple": true,
+                    "check_callback": false,
+                    'themes': {
+                        "responsive": true,
+                        'variant': 'larg',
+                        'stripes': true,
+                        'dots': false
+                    }
+                },
+                "types": {
+                    "default": {
+                        "icon": "fa fa-folder icon-state-warning icon-lg"
+                    },
+                    "file": {
+                        "icon": "fa fa-file icon-state-warning icon-lg"
+                    }
+                },
+                //"plugins": ["dnd", "state", "types", "sort"]
+                "plugins": ["contextmenu"],
+                "contextmenu": {
+                    "select_node": false,
+                    "items": reportMenu
+                }
+            }).bind('loaded.jstree', function () {
+                $('#jstree').jstree('open_all');
+            });
+
+            function reportMenu(node) {
+                // access node as: node.id);
+                // build your menu depending on node id
+                return {
+                    createItem: {
+                        "label": "ایجاد ساختار جدید",
+                        "action": function (obj) {
+                            var url = '@Url.Action("Add")';
+                            var superId = node.id;
+                            window.location.href = url + "?superId=" + superId
+
+                        },
+                        "_class": "class"
+                    },
+                    renameItem: {
+                        "label": "ویرایش ساختار",
+                        "action": function (obj) {
+                            var url = '@Url.Action("Edit")';
+                            var orgId = node.id;
+                            window.location.href = url + "?id=" + orgId
+                        }
+                    },
+                    deleteItem: {
+                        "label": "حذف ساختار",
+                        "action": function (obj) {
+
+                            var url = '@Url.Action("Delete")';
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                cache: false,
+                                data: { id: node.id },
+
+                                success: function (result) {
+                                    if (result) {
+                                        alert("امکان حذف این ساختار وجود ندارد");
+
+
+                                    } else {
+                                        alert("ساختار با موفقیت حذف شد");
+                                        window.location.href = '/Organization/Index'
+                                    }
+                                }
+                            });
+                        }
+                    }
+                };
+            }
+
+
+            $('#jstree').on("select_node.jstree", function (e, data) { alert("node_id: " + data.node.id); });
+        });
+    </script>
+}
+
+
+
+

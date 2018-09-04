@@ -1,0 +1,305 @@
+﻿@if (Session["user.id"] == null)
+{
+    Response.Redirect("~/Login/Index");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>سامانه مدیریت پروژه ها</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.rtl.full.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/style-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+    <section id="container">
+        <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="index.html" class="logo" style="margin-right:20px;margin-left:30px"><b>سامانه مدیریت پروژه ها</b></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-tasks"></i>
+                            <span class="badge bg-theme">4</span>
+                        </a>
+                        <ul class="dropdown-menu extended tasks-bar">
+                            <div style="border-style:solid; border-width:0 9px 9px; width:0;height:0; opacity:1;z-index:10;border-color: transparent transparent #68dff0;border-bottom-color: #68dff0 !important;border-top-color: #68dff0 !important;margin-top: 0;position:absolute;top:-8px;right:15px; "></div>
+                            <li>
+                                <p class="green">شما 4 تا کارتابل جدید دارید</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">DashGum Admin Panel</div>
+                                        <div class="percent">40%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Database Update</div>
+                                        <div class="percent">60%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Product Development</div>
+                                        <div class="percent">80%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Payments Sent</div>
+                                        <div class="percent">70%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                            <span class="sr-only">70% Complete (Important)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="external">
+                                <a href="#">مشاهده همه کارتابل ها</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
+                    <li id="header_inbox_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge bg-theme">5</span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div style="border-style:solid; border-width:0 9px 9px; width:0;height:0; opacity:1;z-index:10;border-color: transparent transparent #68dff0;border-bottom-color: #68dff0 !important;border-top-color: #68dff0 !important;margin-top: 0;position:absolute;top:-8px;right:15px; "></div>
+                            <li>
+                                <p class="green">شما 5 پیام جدید دارید</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="~/assets/img/me.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from" style="margin-right:5px;">رضا قمری</span>
+                                        <span style="float:left">دقایقی پیش</span>
+                                    </span>
+                                    <span style="margin-right:5px;font-size: 11px;">
+                                        سلام. کارتابلو دیدی؟
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="~/assets/img/me.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from" style="margin-right:5px;">رضا قمری</span>
+                                        <span style="float:left">دقایقی پیش</span>
+                                    </span>
+                                    <span style="margin-right:5px;font-size: 11px;">
+                                        سلام. کارتابلو دیدی؟
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="~/assets/img/me.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from" style="margin-right:5px;">رضا قمری</span>
+                                        <span style="float:left">دقایقی پیش</span>
+                                    </span>
+                                    <span style="margin-right:5px;font-size: 11px;">
+                                        سلام. کارتابلو دیدی؟
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="~/assets/img/me.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from" style="margin-right:5px;">رضا قمری</span>
+                                        <span style="float:left">دقایقی پیش</span>
+                                    </span>
+                                    <span style="margin-right:5px;font-size: 11px;">
+                                        سلام. کارتابلو دیدی؟
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">مشاهده همه پیام ها</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox dropdown end -->
+                </ul>
+                <!--  notification end -->
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="@Url.Action("Logout","Login")">خروج</a></li>
+                </ul>
+            </div>
+        </header>
+        <!--header end-->
+        <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
+
+                    <p class="centered"><a href="profile.html"><img src="@Url.Content(Session["user.image"].ToString())" class="img-circle" width="60"></a></p>
+                    @if (Session["user.fullname"] != null)
+                    {
+                        <h5 class="centered">@Session["user.fullname"].ToString()</h5>
+                    }
+                    else
+                    {
+                        <h5 class="centered">کاربر نامشخص</h5>
+                    }
+
+
+                    <li class="mt">
+                        <a class="active" href="@Url.Action("Index","Organization")">
+                            <i class="fa fa-sitemap"></i>
+                            <span><b>ساختار سازمان</b></span>
+                        </a>
+                    </li>
+
+                    <li  class="sub-menu">
+                        <a href="@Url.Action("Index","Person")">
+                            <i class="fa fa-users"></i>
+                            <span><b class="side-menu-title">مدیریت منابع انسانی</b></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fa fa-user"></i>
+                            <span><b>مدیریت کاربران</b></span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-building"></i>
+                            <span><b>مدیریت پروژه ها</b></span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="blank.html">پروژه های پیشنهادی</a></li>
+                            <li><a href="login.html">پروژه های جاری</a></li>
+                            <li><a href="lock_screen.html">قراردادها</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-dollar"></i>
+                            <span><b>مدیریت اعتبارات</b></span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-comments"></i>
+                            <span><b>مدیریت کارتابل و پیام</b></span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="basic_table.html">پیام ها</a></li>
+                            <li><a href="responsive_table.html">کارتابل ها</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class=" fa fa-bar-chart-o"></i>
+                            <span><b>گزارشات</b></span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+    </section>
+
+
+    <div class="container body-content">
+        <br/>
+        <br/>
+        @RenderBody()
+    
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="~/Scripts/jquery.ui.touch-punch.min.js"></script>
+    <script class="include" type="text/javascript" src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Scripts/jquery.scrollTo.min.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.js" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="~/Scripts/common-scripts.js"></script>
+
+
+</body>
+</html>
